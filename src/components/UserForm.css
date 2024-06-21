@@ -1,0 +1,11 @@
+.errormsg{
+    color: black;
+    font-weight: 500;
+    position: static;
+}
+.nameinput{
+    display: flex;
+    flex-direction: column;
+    margin-left: 40%;
+    margin-right: 40%;
+}
