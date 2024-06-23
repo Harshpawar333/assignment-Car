@@ -1,11 +1,10 @@
-.errormsg{
-    color: black;
-    font-weight: 500;
-    position: static;
+.buttoncon{
+    padding: 20px;
+    position: relative;
+    background: bisque;
+    display: block;
+    width:16%;
 }
-.nameinput{
-    display: flex;
-    flex-direction: column;
-    margin-left: 40%;
-    margin-right: 40%;
+.tablee{
+    overflow-y: auto;
 }
