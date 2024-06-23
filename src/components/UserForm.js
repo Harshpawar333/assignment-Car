@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./UserForm.css";
+import { useNavigate } from "react-router-dom";
+import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 function UserForm() {
   const [users, setusers] = useState([]);
@@ -10,9 +13,8 @@ function UserForm() {
   const [nameerr, setnameerr] = useState(false);
   const [phone_noerr, setphone_noerr] = useState(false);
   const [showform, setshowform] = useState(false);
-  const [userid, setuserid] = useState(null);
-  const [userinfo, setuserinfo] = useState(null);
 
+  const Navigate = useNavigate();
   useEffect(() => {
     getusers();
     getcardata();
@@ -26,14 +28,14 @@ function UserForm() {
     const cardata = await axios.get("https://apicars.prisms.in/car/get/3");
     console.log(cardata);
   };
-  function handlesubmit(event) {
+  const handlesubmit = async (event) => {
     event.preventDefault();
     if (name === "") {
       setnameerr(true);
     } else {
       setnameerr(false);
     }
-    if (phone_no > 10) {
+    if (phone_no < 11) {
       setphone_noerr(true);
     } else {
       setphone_noerr(false);
@@ -42,41 +44,41 @@ function UserForm() {
       name: name,
       phone_no: phone_no,
     };
+    const checkuser1 = async(phone_no) => {
+        const response=await axios.get("https://apicars.prisms.in//user/getall")
+        const userstaus=response.data.Users.find(user=> user.phone_no===phone_no);
+        return userstaus === undefined;
+    };
     if (name !== "" && phone_no.length < 11) {
-      const signup = () => {
-        axios.post("https://apicars.prisms.in/user/create", formdata);
-      };
-      signup();
+      const checkuserstatus = await checkuser1(phone_no);
+      if (checkuserstatus) {
+        const signup = () => {
+          axios.post("https://apicars.prisms.in/user/create", formdata);
+          window.alert("user registered successfully")
+        };
+        signup();
+      }else{
+        window.alert("user already registered")
+      }
+      
     }
-  }
+  };
+
   const Showform = () => {
     setshowform(!showform);
     setshowUsers(false);
-    setuserid(null);
   };
   const showw = () => {
     setshowUsers(!showUsers);
     setshowform(false);
-    setuserid(null)
-  };
-  const getuserinfo = async (userId) => {
-    const response = await axios.get(
-      `https://apicars.prisms.in/user/get/${userId}`
-    );
-    setuserinfo(response.data.User);
-    console.log(response.data.User);
   };
   const handleuserclick = (userId) => {
-    if (userid === userId) {
-      setuserid(null);
-      setuserinfo(null);
-    } else {
-      setuserid(userId);
-      getuserinfo(userId);
-    }
+    Navigate(`/userinfo/${userId}`);
   };
+
   return (
     <div className="userform">
+      <h1>User Management</h1>
       <div className="buttoncon">
         <button onClick={showw} className="button">
           User List
@@ -85,82 +87,66 @@ function UserForm() {
           Create New User
         </button>
       </div>
-      {showform && (
-        <div className="userform">
-          <form onSubmit={handlesubmit}>
-            <div className="nameinput">
-              <label>Name </label>
-              <input
-                type="text"
-                value={name}
-                placeholder="Name"
-                onChange={(event) => setName(event.target.value)}
-              ></input>
-              {nameerr && <span className="errormsg">invalid</span>}
+      <Tabs>
+        <TabList>
+          {showUsers && <Tab>User List</Tab>}
+          {showform && <Tab>Create New User</Tab>}
+        </TabList>
+
+        {showform && (
+          <TabPanel>
+            <div className="userform1">
+              <form onSubmit={handlesubmit}>
+                <div className="nameinput">
+                  <label>Name </label>
+                  <input
+                    type="text"
+                    value={name}
+                    placeholder="Harsh Pawar"
+                    onChange={(event) => setName(event.target.value)}
+                  ></input>
+                  {nameerr && <span className="errormsg">invalid</span>}
+                </div>
+                <div className="nameinput">
+                  <label>Phone no. </label>
+                  <input
+                    type="text"
+                    value={phone_no}
+                    placeholder="7840985216"
+                    onChange={(event) => setphone_no(event.target.value)}
+                  ></input>
+                  {phone_noerr && <span className="errormsg">invalid</span>}
+                </div>
+                <button className="adduser" type="submit">
+                  Add User
+                </button>
+              </form>
             </div>
-            <div className="nameinput">
-              <label>Phone no. </label>
-              <input
-                type="text"
-                value={phone_no}
-                placeholder="phone no."
-                onChange={(event) => setphone_no(event.target.value)}
-              ></input>
-              {phone_noerr && <span className="errormsg">invalid</span>}
-            </div>
-            <button type="submit">Add User</button>
-          </form>
-        </div>
-      )}
-      {showUsers && (
-        <div className="tablee">
-          <table>
-            <thead>
-              <tr>
-                <th className="userid">User-Id</th>
-                <th>User-Name</th>
-                <th>Phone no.</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.id} onClick={() => handleuserclick(user.id)}>
-                  <td className="userid">{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.phone_no}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      <div>
-        <table>
-          {userid && userinfo && (
-            <div className="userdetails">
+          </TabPanel>
+        )}
+        {showUsers && (
+          <div className="tablee">
+            <table>
               <thead>
                 <tr>
+                  <th className="userid">User-Id</th>
                   <th>User-Name</th>
-                  <th>Phone-No</th>
-                  <th>Cars</th>
+                  <th>Phone no.</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                <td>{userinfo.name}</td>
-                <td>{userinfo.phone_no}</td>
-                {userinfo.Cars.map((services) => (
-                  <tr key={services.id}>
-                    <td>{services.model}</td>
+                {users.map((user) => (
+                  <tr key={user.id} onClick={() => handleuserclick(user.id)}>
+                    <td className="userid">{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.phone_no}</td>
                   </tr>
                 ))}
-                </tr>
-                
               </tbody>
-            </div>
-          )}
-        </table>
-      </div>
+            </table>
+          </div>
+        )}
+      </Tabs>
     </div>
   );
 }

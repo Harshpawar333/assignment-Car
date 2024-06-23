@@ -1,10 +1,131 @@
 .buttoncon{
     padding: 20px;
-    position: relative;
-    background: bisque;
-    display: block;
-    width:16%;
+    display: flex ;
+    justify-content: center;
+    gap: 10px;
 }
+.userform h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #885133;
+    display: flex;
+    justify-content: center;
+  }
 .tablee{
     overflow-y: auto;
+    max-height: 300px;
+    display: ruby-text;
 }
+.tablee table{
+    
+    border-collapse: collapse;
+}
+.button{
+    padding: 10px 20px;
+    background-color: #d62300;
+    color: #f4f0ec;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.userform{
+    background-color: #f0e6d7;
+}
+.h1{
+    padding: 0%;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #f0e6d7;
+  }
+.userform1{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #885133;
+    border-radius: 5px;
+    box-shadow: 0 0 5px;
+    width: 40%;
+    color: #885133;
+    
+}
+.userform1 form{
+    display: flex;
+    gap: 10px;
+    
+}
+
+.nameinput input{
+    border-radius: 5px;
+    border: 1px solid #885133;
+    border-style: dotted;
+    box-sizing: border-box;
+    
+}
+.nameinput input:focus{
+    border-color: #885133;
+    outline:none
+}
+
+.tablee{
+    border: #885133;
+    margin-top: 20px;
+}
+.tablee table{
+    border-collapse: collapse;
+    box-shadow: 0 0 5px
+
+}
+.tablee th,.tablee td{
+    padding: 20px;
+    border:1px solid #885133;
+
+}
+.adduser{
+    background-color: #d62300;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 10px;
+    text-align: center;
+    box-shadow: #885133;
+}
+
+.userInfo{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+
+}
+.userdetails{
+    overflow-y: auto;
+    max-height: 300px;
+}
+.userdetails table{
+    box-shadow: 0 0 5px;
+    border-collapse:collapse;
+    
+}
+
+.userdetails th,.userdetails td{
+    border:1px solid #885133;
+    vertical-align: top;
+}
+.tabs .tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #885133;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  
+  .tabs .tab:hover {
+    background-color: #f0e6d7;
+  }

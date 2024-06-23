@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Carmanagement from './components/Carmanagement';
+import UserForm from './components/UserForm';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Userinfo from './components/Userinfo';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    
+    <Router>
+      <Routes>
+        <Route exact path='/' element={<UserForm/>} />
+        <Route path='/carmanagement' element={<Carmanagement/>} />
+        <Route path='/Userinfo/:id' element={<Userinfo/>} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 
