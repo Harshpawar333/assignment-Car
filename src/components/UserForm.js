@@ -147,6 +147,7 @@ function UserForm() {
           </div>
         )}
       </Tabs>
+      <div className="connection"><button  className='button'onClick={()=>Navigate(`/carmanagement`)}>Car Management</button></div>
     </div>
   );
 }

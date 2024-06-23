@@ -13,7 +13,7 @@
   }
 .tablee{
     overflow-y: auto;
-    max-height: 300px;
+    max-height: 500px;
     display: ruby-text;
 }
 .tablee table{
@@ -116,16 +116,9 @@ body, html {
     border:1px solid #885133;
     vertical-align: top;
 }
-.tabs .tab {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border: 1px solid #885133;
-    cursor: pointer;
-    margin-bottom: 5px;
-    border-radius: 5px;
-  }
-  
-  .tabs .tab:hover {
-    background-color: #f0e6d7;
-  }
+.connection{
+
+   position: absolute;
+   bottom: 20px;
+   right:20px;
+}

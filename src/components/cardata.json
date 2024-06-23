@@ -1,0 +1,44 @@
+{
+    "error": 0,
+    "error-message": "",
+    "Cars": [
+      {
+        "id": 1,
+        "model": "Toyota Camry",
+        "purchaseDate": "2020-01-01",
+        "Servicing": [
+          {
+            "id": 1,
+            "servicing_date": "2020-06-01",
+            "status": "Completed"
+          },
+          {
+            "id": 2,
+            "servicing_date": "2019-12-15",
+            "status": "Completed"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "model": "Honda Accord",
+        "purchaseDate": "2019-05-15",
+        "Servicing": [
+        
+        ]
+      },
+      {
+        "id": 3,
+        "model": "Tesla Model 3",
+        "purchaseDate": "2021-03-10",
+        "Servicing": [
+          {
+            "id": 3,
+            "servicing_date": "2021-09-10",
+            "status": "Scheduled"
+          }
+        ]
+      }
+    ]
+  }
+  
