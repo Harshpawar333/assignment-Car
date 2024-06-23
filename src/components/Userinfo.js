@@ -8,12 +8,11 @@ function Userinfo() {
     const [userinfo, setuserinfo] = useState(null);
     useEffect(()=>{
         getuserinfo();
-    },[]);
-    const getuserinfo = async (userId) => {
+    },[userinfo]);
+    const getuserinfo = async () => {
         const response = await axios.get(
           `https://apicars.prisms.in/user/get/${id}`
         );
-        console.log(userId);
         setuserinfo(response.data.User);
         console.log(response.data.User);
       };
