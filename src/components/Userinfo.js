@@ -9,7 +9,7 @@ function Userinfo() {
     useEffect(()=>{
         getuserinfo();
     },[]);
-    const getuserinfo = async (userId) => {
+    const getuserinfo = async (id) => {
         const response = await axios.get(
           `https://apicars.prisms.in/user/get/${id}`
         );
