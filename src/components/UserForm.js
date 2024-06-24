@@ -13,7 +13,7 @@ function UserForm() {
   const [nameerr, setnameerr] = useState(false);
   const [phone_noerr, setphone_noerr] = useState(false);
   const [showform, setshowform] = useState(false);
-  const [validate,setvalidate]=useState(false);
+  const [validate, setvalidate] = useState(false);
 
   const Navigate = useNavigate();
   useEffect(() => {
@@ -45,10 +45,14 @@ function UserForm() {
       name: name,
       phone_no: phone_no,
     };
-    const checkuser1 = async(phone_no) => {
-        const response=await axios.get("https://apicars.prisms.in//user/getall")
-        const userstaus=response.data.Users.find(user=> user.phone_no===phone_no);
-        return userstaus === undefined;
+    const checkuser1 = async (phone_no) => {
+      const response = await axios.get(
+        "https://apicars.prisms.in//user/getall"
+      );
+      const userstaus = response.data.Users.find(
+        (user) => user.phone_no === phone_no
+      );
+      return userstaus === undefined;
     };
     if (name !== "" && phone_no.length < 11) {
       const checkuserstatus = await checkuser1(phone_no);
@@ -58,21 +62,24 @@ function UserForm() {
           setvalidate(false);
         };
         signup();
-      }else{
+      } else {
         setvalidate(true);
       }
-      
     }
   };
 
   const Showform = () => {
     setshowform(!showform);
-    setshowUsers(false);
+    if (showUsers === false) {
+      setshowUsers(true);
+    } else {
+      setshowUsers(false);
+    }
   };
-  const showw = () => {
-    setshowUsers(!showUsers);
-    setshowform(false);
-  };
+  // const showw = () => {
+  //   setshowUsers(!showUsers);
+  //   setshowform(false);
+  // };
   const handleuserclick = (userId) => {
     Navigate(`/userinfo/${userId}`);
   };
@@ -81,9 +88,9 @@ function UserForm() {
     <div className="userform">
       <h1>User Management</h1>
       <div className="buttoncon">
-        <button onClick={showw} className="button">
+        {/* <button onClick={showw} className="button">
           User List
-        </button>
+        </button> */}
         <button className="button" onClick={Showform}>
           Create New User
         </button>
@@ -115,7 +122,6 @@ function UserForm() {
                     placeholder="7840985216"
                     onChange={(event) => setphone_no(event.target.value)}
                   ></input>
-                  
                 </div>
 
                 <button className="adduser" type="submit">
@@ -123,12 +129,11 @@ function UserForm() {
                 </button>
               </form>
             </div>
-            {validate&&<span>User Already Registered</span>}
-            {phone_noerr && <span className="errormsg">Phone no should be of 10 digits</span>}
+            {validate && <span>User Already Registered</span>}
+            {phone_noerr && (
+              <span className="errormsg">Phone no should be of 10 digits</span>
+            )}
             {nameerr && <span className="errormsg">Name cannot be empty</span>}
-
-
-
           </TabPanel>
         )}
         {showUsers && (
@@ -154,7 +159,11 @@ function UserForm() {
           </div>
         )}
       </Tabs>
-      <div className="connection"><button  className='button'onClick={()=>Navigate(`/carmanagement`)}>Car Management</button></div>
+      <div className="connection">
+        <button className="button" onClick={() => Navigate(`/carmanagement`)}>
+          Car Management
+        </button>
+      </div>
     </div>
   );
 }
