@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
+import { Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import axios from "axios";
 import cardata from "./cardata.json";
-import { useNavigate } from "react-router-dom";
 import cardata1 from "./cardata1.json";
 
 function Carmanagement() {
@@ -11,7 +10,7 @@ function Carmanagement() {
   const cardatabase = cardata1.Cars;
   const [addcar, setaddcars] = useState(false);
   const [showcars, setshowcars] = useState(false);
-  const [showservice, setshowservice] = useState(false);
+  const [showservice, setshowservice] = useState(true);
   const [createservice, setcreateservice] = useState(false);
   const [model, setmodel] = useState("");
   const [id, setid] = useState("");
@@ -20,7 +19,6 @@ function Carmanagement() {
   const [carid, setcarid] = useState("");
   const [servicing_date, setservicing_date] = useState("");
   const [status, setstatus] = useState("");
-  const Navigate = useNavigate();
   const [validation, setvalidation] = useState(false);
   const Servicingrecord = {
     carid: carid,
@@ -61,7 +59,6 @@ function Carmanagement() {
   const servicef = (e) => {
     e.preventDefault();
     axios.post("https://apicars.prisms.in/servicing/create", Servicingrecord);
-    window.alert("record added");
   };
   //   const getcardata = async () => {
   //     const cardata = await axios.get("https://apicars.prisms.in/car/get/3");
@@ -77,12 +74,16 @@ function Carmanagement() {
       setvalidation(true);
     } else {
       axios.post("https://apicars.prisms.in/car/create", form);
+
     }
   };
   return (
     <div className="userform">
       <h1>Car Management</h1>
       <div className="buttoncon">
+      <button className="button" onClick={ShowService}>
+          Show Car List
+        </button>
         <button className="button" onClick={showCars}>
           Display All Serviced Cars
         </button>
@@ -92,16 +93,14 @@ function Carmanagement() {
         <button className="button" onClick={Createservice}>
           Create Servicing record
         </button>
-        <button className="button" onClick={ShowService}>
-          Show Car List
-        </button>
+        
       </div>
       <Tabs>
         <TabList>
-          {showcars && <Tab>Services List</Tab>}
+          {/* {showcars && <Tab>Services List</Tab>}
           {addcar && <Tab>Add Record</Tab>}
-          {createservice && <Tab>Add Service</Tab>}
-          {showservice && <Tab>Show Car List</Tab>}
+          {createservice && <Tab>Add Service</Tab>} */}
+          {/* {showservice && <Tab>Show Car List</Tab>} */}
         </TabList>
         {showcars && (
           <TabPanel>
@@ -225,11 +224,7 @@ function Carmanagement() {
           </TabPanel>
         )}
       </Tabs>
-      <div className="connection">
-        <button className="button" onClick={() => Navigate(`/`)}>
-          User Management
-        </button>
-      </div>
+      
     </div>
   );
 }

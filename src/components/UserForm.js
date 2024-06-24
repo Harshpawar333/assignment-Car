@@ -4,6 +4,7 @@ import "./UserForm.css";
 import { useNavigate } from "react-router-dom";
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import Carmanagement from "./Carmanagement";
 
 function UserForm() {
   const [users, setusers] = useState([]);
@@ -18,17 +19,15 @@ function UserForm() {
   const Navigate = useNavigate();
   useEffect(() => {
     getusers();
-    getcardata();
   }, []);
   const getusers = async () => {
     const response = await axios.get("https://apicars.prisms.in//user/getall");
     setusers(response.data.Users);
     console.log(response.data);
   };
-  const getcardata = async () => {
-    const cardata = await axios.get("https://apicars.prisms.in/car/get/3");
-    console.log(cardata);
-  };
+  // const getcardata = async () => {
+  //   const cardata = await axios.get("https://apicars.prisms.in/car/get/3");
+  // };
   const handlesubmit = async (event) => {
     event.preventDefault();
     if (name === "") {
@@ -60,6 +59,7 @@ function UserForm() {
         const signup = () => {
           axios.post("https://apicars.prisms.in/user/create", formdata);
           setvalidate(false);
+          Showform()
         };
         signup();
       } else {
@@ -76,29 +76,27 @@ function UserForm() {
       setshowUsers(false);
     }
   };
-  // const showw = () => {
-  //   setshowUsers(!showUsers);
-  //   setshowform(false);
-  // };
+  const showw = () => {
+    if(showUsers===false){
+      setshowUsers(!showUsers);
+      setshowform(false);
+    }else{
+      setshowUsers(true);
+    }
+
+  };
   const handleuserclick = (userId) => {
     Navigate(`/userinfo/${userId}`);
   };
 
   return (
     <div className="userform">
-      <h1>User Management</h1>
-      <div className="buttoncon">
-        {/* <button onClick={showw} className="button">
-          User List
-        </button> */}
-        <button className="button" onClick={Showform}>
-          Create New User
-        </button>
-      </div>
+      <h1>Go Garage</h1>
+
       <Tabs>
         <TabList>
-          {showUsers && <Tab>User List</Tab>}
-          {showform && <Tab>Create New User</Tab>}
+          <Tab onClick={showw}>User Management</Tab>
+          <Tab>Car Management</Tab>
         </TabList>
 
         {showform && (
@@ -137,33 +135,42 @@ function UserForm() {
           </TabPanel>
         )}
         {showUsers && (
-          <div className="tablee">
-            <table>
-              <thead>
-                <tr>
-                  <th className="userid">User-Id</th>
-                  <th>User-Name</th>
-                  <th>Phone no.</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user.id} onClick={() => handleuserclick(user.id)}>
-                    <td className="userid">{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.phone_no}</td>
+          <TabPanel>
+            <div className="tablee">
+              <table>
+                <thead>
+                  <tr>
+                    <th className="userid">User-Id</th>
+                    <th>User-Name</th>
+                    <th>Phone no.</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id} onClick={() => handleuserclick(user.id)}>
+                      <td className="userid">{user.id}</td>
+                      <td>{user.name}</td>
+                      <td>{user.phone_no}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="buttoncon">
+                {/* <button onClick={showw} className="button">
+          User List
+        </button> */}
+                <button className="button" onClick={Showform}>
+                  Create New User
+                </button>
+              </div>
+            </div>
+          </TabPanel>
         )}
+        <TabPanel>
+        <Carmanagement />
+        </TabPanel>
       </Tabs>
-      <div className="connection">
-        <button className="button" onClick={() => Navigate(`/carmanagement`)}>
-          Car Management
-        </button>
-      </div>
+      
     </div>
   );
 }
