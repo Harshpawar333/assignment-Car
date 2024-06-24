@@ -7,12 +7,13 @@ import "react-tabs/style/react-tabs.css";
 
 function UserForm() {
   const [users, setusers] = useState([]);
-  const [showUsers, setshowUsers] = useState(false);
+  const [showUsers, setshowUsers] = useState(true);
   const [name, setName] = useState("");
   const [phone_no, setphone_no] = useState("");
   const [nameerr, setnameerr] = useState(false);
   const [phone_noerr, setphone_noerr] = useState(false);
   const [showform, setshowform] = useState(false);
+  const [validate,setvalidate]=useState(false);
 
   const Navigate = useNavigate();
   useEffect(() => {
@@ -54,11 +55,11 @@ function UserForm() {
       if (checkuserstatus) {
         const signup = () => {
           axios.post("https://apicars.prisms.in/user/create", formdata);
-          window.alert("user registered successfully")
+          setvalidate(false);
         };
         signup();
       }else{
-        window.alert("user already registered")
+        setvalidate(true);
       }
       
     }
@@ -105,23 +106,29 @@ function UserForm() {
                     placeholder="Harsh Pawar"
                     onChange={(event) => setName(event.target.value)}
                   ></input>
-                  {nameerr && <span className="errormsg">invalid</span>}
                 </div>
                 <div className="nameinput">
                   <label>Phone no. </label>
                   <input
-                    type="text"
+                    type="number"
                     value={phone_no}
                     placeholder="7840985216"
                     onChange={(event) => setphone_no(event.target.value)}
                   ></input>
-                  {phone_noerr && <span className="errormsg">invalid</span>}
+                  
                 </div>
+
                 <button className="adduser" type="submit">
                   Add User
                 </button>
               </form>
             </div>
+            {validate&&<span>User Already Registered</span>}
+            {phone_noerr && <span className="errormsg">Phone no should be of 10 digits</span>}
+            {nameerr && <span className="errormsg">Name cannot be empty</span>}
+
+
+
           </TabPanel>
         )}
         {showUsers && (

@@ -4,11 +4,11 @@ import "react-tabs/style/react-tabs.css";
 import axios from "axios";
 import cardata from "./cardata.json";
 import { useNavigate } from "react-router-dom";
-import cardata1 from './cardata1.json';
+import cardata1 from "./cardata1.json";
 
 function Carmanagement() {
   const cars = cardata.Cars;
-  const cardatabase=cardata1.Cars;
+  const cardatabase = cardata1.Cars;
   const [addcar, setaddcars] = useState(false);
   const [showcars, setshowcars] = useState(false);
   const [showservice, setshowservice] = useState(false);
@@ -21,6 +21,7 @@ function Carmanagement() {
   const [servicing_date, setservicing_date] = useState("");
   const [status, setstatus] = useState("");
   const Navigate = useNavigate();
+  const [validation, setvalidation] = useState(false);
   const Servicingrecord = {
     carid: carid,
     servicing_date: servicing_date,
@@ -36,6 +37,8 @@ function Carmanagement() {
   const ShowService = () => {
     setshowservice(!showservice);
     setcreateservice(false);
+    setaddcars(false);
+    setshowcars(false);
   };
   const Createservice = () => {
     setcreateservice(!createservice);
@@ -47,11 +50,13 @@ function Carmanagement() {
     setshowcars(!showcars);
     setaddcars(false);
     setcreateservice(false);
+    setshowservice(false);
   };
   const addcars = () => {
     setaddcars(!addcar);
     setshowcars(false);
     setcreateservice(false);
+    setshowservice(false);
   };
   const servicef = (e) => {
     e.preventDefault();
@@ -69,11 +74,9 @@ function Carmanagement() {
       (user) => user.id === parseInt(id)
     );
     if (userauth === undefined) {
-      window.alert("first add user");
+      setvalidation(true);
     } else {
       axios.post("https://apicars.prisms.in/car/create", form);
-      console.log(form);
-      window.alert("New entry");
     }
   };
   return (
@@ -112,7 +115,7 @@ function Carmanagement() {
                 </thead>
                 <tbody>
                   {cars.map((car) => (
-                    <tr key={car.id} >
+                    <tr key={car.id}>
                       <td>{car.id}</td>
                       <td>{car.model}</td>
                       <td>{car.purchaseDate}</td>
@@ -140,7 +143,7 @@ function Carmanagement() {
             <form onSubmit={useridauth}>
               <label>Id</label>
               <input
-                type="text"
+                type="number"
                 value={id}
                 onChange={(event) => setid(event.target.value)}
               ></input>
@@ -163,6 +166,7 @@ function Carmanagement() {
                 onChange={(event) => setpurchasedate(event.target.value)}
               ></input>
               <button type="submit">Submit</button>
+              {validation && <span className="validationmsg">First Add User</span>}
             </form>
           </div>
         )}
@@ -171,7 +175,7 @@ function Carmanagement() {
             <form onSubmit={servicef}>
               <label>Car-Id</label>
               <input
-                type="text"
+                type="number"
                 value={carid}
                 onChange={(event) => setcarid(event.target.value)}
               ></input>
@@ -208,7 +212,7 @@ function Carmanagement() {
                 </thead>
                 <tbody>
                   {cardatabase.map((cars) => (
-                    <tr key={cars.id} >
+                    <tr key={cars.id}>
                       <td>{cars.id}</td>
                       <td>{cars.model}</td>
                       <td>{cars.purchaseDate}</td>

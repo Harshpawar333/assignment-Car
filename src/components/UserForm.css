@@ -1,19 +1,19 @@
 .buttoncon{
-    padding: 20px;
+    padding: 2vh;
     display: flex ;
     justify-content: center;
-    gap: 10px;
+    gap: 2.5vh;
 }
 .userform h1 {
     font-size: 2em;
-    margin-bottom: 20px;
+    margin-bottom: 5vh;
     color: #885133;
     display: flex;
     justify-content: center;
   }
 .tablee{
     overflow-y: auto;
-    max-height: 500px;
+    max-height: 70vh;
     display: ruby-text;
 }
 .tablee table{
@@ -21,7 +21,7 @@
     border-collapse: collapse;
 }
 .button{
-    padding: 10px 20px;
+    padding: 2.5vh 5vh;
     background-color: #d62300;
     color: #f4f0ec;
     border: none;
@@ -44,7 +44,7 @@ body, html {
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    padding: 20px;
+    padding: 5vh;
     border: 1px solid #885133;
     border-radius: 5px;
     box-shadow: 0 0 5px;
@@ -54,7 +54,7 @@ body, html {
 }
 .userform1 form{
     display: flex;
-    gap: 10px;
+    gap: 2vh;
     
 }
 
@@ -72,15 +72,15 @@ body, html {
 
 .tablee{
     border: #885133;
-    margin-top: 20px;
+    margin-top: 5vh;
 }
 .tablee table{
     border-collapse: collapse;
-    box-shadow: 0 0 5px
+    box-shadow: 0 0 5px;
 
 }
 .tablee th,.tablee td{
-    padding: 20px;
+    padding: 5vh;
     border:1px solid #885133;
 
 }
@@ -95,7 +95,7 @@ body, html {
 }
 
 .userInfo{
-    margin-top: 20px;
+    margin-top: 1vh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -104,7 +104,7 @@ body, html {
 }
 .userdetails{
     overflow-y: auto;
-    max-height: 300px;
+    max-height: 95vh;
 }
 .userdetails table{
     box-shadow: 0 0 5px;
@@ -119,6 +119,16 @@ body, html {
 .connection{
 
    position: absolute;
-   bottom: 20px;
-   right:20px;
+   top: 10vh;
+   right:10px;
+}
+span{
+    display: flex;
+    justify-content: center;
+    color: brown;
+}
+.validationmsg{
+    position: absolute;
+    left:200vh;
+    margin-top: 12vh;
 }
