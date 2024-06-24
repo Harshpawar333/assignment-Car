@@ -48,7 +48,7 @@ body, html {
     border: 1px solid #885133;
     border-radius: 5px;
     box-shadow: 0 0 5px;
-    width: 40%;
+    width: fit-content;
     color: #885133;
     
 }

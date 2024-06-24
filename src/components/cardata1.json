@@ -1,0 +1,67 @@
+{
+    "error": 0,
+    "error-message": "",
+    "Cars": [
+        {
+            "id": 1,
+            "model": "Toyota Camry",
+            "purchaseDate": "2020-01-01",
+            "color": "Silver"
+        },
+        {
+            "id": 2,
+            "model": "Honda Accord",
+            "purchaseDate": "2019-05-15",
+            "color": "White"
+        },
+        {
+            "id": 3,
+            "model": "Tesla Model 3",
+            "purchaseDate": "2021-03-10",
+            "color": "Red"
+        },
+        {
+            "id": 4,
+            "model": "Ford Mustang",
+            "purchaseDate": "2022-07-19",
+            "color": "Blue"
+        },
+        {
+            "id": 5,
+            "model": "Chevrolet Malibu",
+            "purchaseDate": "2020-11-25",
+            "color": "Black"
+        },
+        {
+            "id": 6,
+            "model": "BMW 3 Series",
+            "purchaseDate": "2018-04-12",
+            "color": "Grey"
+        },
+        {
+            "id": 7,
+            "model": "Audi A4",
+            "purchaseDate": "2019-08-22",
+            "color": "Black"
+        },
+        {
+            "id": 8,
+            "model": "Mercedes-Benz C-Class",
+            "purchaseDate": "2020-12-01",
+            "color": "Silver"
+        },
+        {
+            "id": 9,
+            "model": "Hyundai Sonata",
+            "purchaseDate": "2021-06-10",
+            "color": "White"
+        },
+        {
+            "id": 10,
+            "model": "Kia Optima",
+            "purchaseDate": "2017-09-30",
+            "color": "Silver"
+        }
+    ]
+  }
+  
