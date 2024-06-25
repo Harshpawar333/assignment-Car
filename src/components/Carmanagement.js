@@ -21,8 +21,9 @@ function Carmanagement() {
   const [status, setstatus] = useState("");
   const [validation, setvalidation] = useState(false);
   const [validate, setvalidate] = useState(false);
-  const [validateaddcar,setvalidateaddcar]=useState(false);
-  const [usersuccess,setusersuccess]=useState(false);
+  const [validateaddcar, setvalidateaddcar] = useState(false);
+  const [usersuccess, setusersuccess] = useState(false);
+  const [vserviceadd, setvserviceadd] = useState(false);
   const Servicingrecord = {
     id: parseInt(carid),
     servicing_date: servicing_date,
@@ -59,14 +60,15 @@ function Carmanagement() {
     setcreateservice(false);
     setshowservice(false);
   };
-  const servicef = (e) => {
+  const servicef = async(e) => {
     e.preventDefault();
-    if (servicing_date !== "" && status!=="" && carid!==undefined) {
-      axios.post("https://apicars.prisms.in/servicing/create", Servicingrecord);
-      console.log(Servicingrecord);
+    if (servicing_date !== "" && status !== "" && carid !== undefined) {
+      await axios.post("https://apicars.prisms.in/servicing/create", Servicingrecord);
+      setvserviceadd(true);
+      setvalidate(false);
     } else {
       setvalidate(true);
-
+      setvserviceadd(false);
     }
   };
   //   const getcardata = async () => {
@@ -82,16 +84,17 @@ function Carmanagement() {
     if (userauth === undefined) {
       setvalidation(true);
       setvalidateaddcar(false);
-
-    } else if(id!==undefined && model!=="" &&color!==""&& purchasedate!=="" ) {
-      axios.post("https://apicars.prisms.in/car/create", form);
+    } else if (
+      id !== undefined &&
+      model !== "" &&
+      color !== "" &&
+      purchasedate !== ""
+    ) {
+      await axios.post("https://apicars.prisms.in/car/create", form);
       setusersuccess(true);
       setvalidation(false);
       setvalidateaddcar(false);
-
-
-      
-    }else{
+    } else {
       setvalidateaddcar(true);
       setvalidation(false);
     }
@@ -186,8 +189,12 @@ function Carmanagement() {
               {validation && (
                 <span className="validatemsg">First Add User</span>
               )}
-              {validateaddcar&&(<span className="validatemsg">Fields cannot be empty</span>)}
-              {usersuccess&&(<span className="validatemsg">User Succesfully Registered</span>)}
+              {validateaddcar && (
+                <span className="validatemsg">Fields cannot be empty</span>
+              )}
+              {usersuccess && (
+                <span className="validatemsg">User Succesfully Registered</span>
+              )}
             </form>
           </div>
         )}
@@ -219,7 +226,12 @@ function Carmanagement() {
                 onChange={(event) => setservicing_date(event.target.value)}
               ></input>
               <button type="submit">Submit</button>
-              {validate&&(<span className="validatemsg">Field cannot be empty</span>)}
+              {validate && (
+                <span className="validatemsg">Field cannot be empty</span>
+              )}
+              {vserviceadd && (
+                <span className="validatemsg">service added</span>
+              )}
             </form>
           </div>
         )}
