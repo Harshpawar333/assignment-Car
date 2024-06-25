@@ -20,14 +20,17 @@ function Carmanagement() {
   const [servicing_date, setservicing_date] = useState("");
   const [status, setstatus] = useState("");
   const [validation, setvalidation] = useState(false);
+  const [validate, setvalidate] = useState(false);
+  const [validateaddcar,setvalidateaddcar]=useState(false);
+  const [usersuccess,setusersuccess]=useState(false);
   const Servicingrecord = {
-    carid: carid,
+    id: parseInt(carid),
     servicing_date: servicing_date,
     status: status,
   };
 
   const form = {
-    ownerid: parseInt(id),
+    ownerid: id,
     model: model,
     color: color,
     purchase_date: purchasedate,
@@ -58,7 +61,13 @@ function Carmanagement() {
   };
   const servicef = (e) => {
     e.preventDefault();
-    axios.post("https://apicars.prisms.in/servicing/create", Servicingrecord);
+    if (servicing_date !== "" && status!=="" && carid!==undefined) {
+      axios.post("https://apicars.prisms.in/servicing/create", Servicingrecord);
+      console.log(Servicingrecord);
+    } else {
+      setvalidate(true);
+
+    }
   };
   //   const getcardata = async () => {
   //     const cardata = await axios.get("https://apicars.prisms.in/car/get/3");
@@ -72,16 +81,26 @@ function Carmanagement() {
     );
     if (userauth === undefined) {
       setvalidation(true);
-    } else {
-      axios.post("https://apicars.prisms.in/car/create", form);
+      setvalidateaddcar(false);
 
+    } else if(id!==undefined && model!=="" &&color!==""&& purchasedate!=="" ) {
+      axios.post("https://apicars.prisms.in/car/create", form);
+      setusersuccess(true);
+      setvalidation(false);
+      setvalidateaddcar(false);
+
+
+      
+    }else{
+      setvalidateaddcar(true);
+      setvalidation(false);
     }
   };
   return (
     <div className="userform">
       <h1>Car Management</h1>
       <div className="buttoncon">
-      <button className="button" onClick={ShowService}>
+        <button className="button" onClick={ShowService}>
           Show Car List
         </button>
         <button className="button" onClick={showCars}>
@@ -93,7 +112,6 @@ function Carmanagement() {
         <button className="button" onClick={Createservice}>
           Create Servicing record
         </button>
-        
       </div>
       <Tabs>
         <TabList>
@@ -165,7 +183,11 @@ function Carmanagement() {
                 onChange={(event) => setpurchasedate(event.target.value)}
               ></input>
               <button type="submit">Submit</button>
-              {validation && <span className="validationmsg">First Add User</span>}
+              {validation && (
+                <span className="validatemsg">First Add User</span>
+              )}
+              {validateaddcar&&(<span className="validatemsg">Fields cannot be empty</span>)}
+              {usersuccess&&(<span className="validatemsg">User Succesfully Registered</span>)}
             </form>
           </div>
         )}
@@ -185,6 +207,7 @@ function Carmanagement() {
                 type="text"
                 onChange={(event) => setstatus(event.target.value)}
               >
+                <option>Select Option</option>
                 <option value="finished">finished</option>
                 <option value="unfinished">unfinished</option>
                 <option value="scheduled">scheduled</option>
@@ -196,6 +219,7 @@ function Carmanagement() {
                 onChange={(event) => setservicing_date(event.target.value)}
               ></input>
               <button type="submit">Submit</button>
+              {validate&&(<span className="validatemsg">Field cannot be empty</span>)}
             </form>
           </div>
         )}
@@ -224,7 +248,6 @@ function Carmanagement() {
           </TabPanel>
         )}
       </Tabs>
-      
     </div>
   );
 }

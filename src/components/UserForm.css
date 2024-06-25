@@ -132,3 +132,8 @@ span{
     left:200vh;
     margin-top: 12vh;
 }
+.validatemsg{
+    position: absolute;
+    left: 100vh;
+    margin-top: 12vh;
+}

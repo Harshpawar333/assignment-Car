@@ -59,7 +59,7 @@ function UserForm() {
         const signup = () => {
           axios.post("https://apicars.prisms.in/user/create", formdata);
           setvalidate(false);
-          Showform()
+          Showform();
         };
         signup();
       } else {
@@ -77,13 +77,12 @@ function UserForm() {
     }
   };
   const showw = () => {
-    if(showUsers===false){
+    if (showUsers === false) {
       setshowUsers(!showUsers);
       setshowform(false);
-    }else{
+    } else {
       setshowUsers(true);
     }
-
   };
   const handleuserclick = (userId) => {
     Navigate(`/userinfo/${userId}`);
@@ -167,10 +166,9 @@ function UserForm() {
           </TabPanel>
         )}
         <TabPanel>
-        <Carmanagement />
+          <Carmanagement />
         </TabPanel>
       </Tabs>
-      
     </div>
   );
 }
